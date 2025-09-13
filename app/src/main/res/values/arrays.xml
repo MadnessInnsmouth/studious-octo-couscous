@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="language_entries">
+        <item>English (US)</item>
+        <item>English (UK)</item>
+        <item>Spanish</item>
+        <item>French</item>
+        <item>German</item>
+        <item>Italian</item>
+        <item>Portuguese</item>
+        <item>Chinese (Mandarin)</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Russian</item>
+        <item>Arabic</item>
+        <item>Hindi</item>
+    </string-array>
+    
+    <string-array name="language_values">
+        <item>en-US</item>
+        <item>en-UK</item>
+        <item>es-ES</item>
+        <item>fr-FR</item>
+        <item>de-DE</item>
+        <item>it-IT</item>
+        <item>pt-PT</item>
+        <item>zh-CN</item>
+        <item>ja-JP</item>
+        <item>ko-KR</item>
+        <item>ru-RU</item>
+        <item>ar-AR</item>
+        <item>hi-IN</item>
+    </string-array>
+</resources>

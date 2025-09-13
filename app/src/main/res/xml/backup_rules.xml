@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!-- Exclude the VOSK model files from backup -->
+    <exclude domain="file" path="vosk-model" />
+    <!-- Exclude temporary speech recognition files -->
+    <exclude domain="file" path="speech_temp" />
+    <!-- Include preferences and essential data -->
+    <include domain="sharedpref" path="." />
+</full-backup-content>

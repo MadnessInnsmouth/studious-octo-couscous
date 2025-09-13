@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="Voice Dictation">
+        
+        <SwitchPreferenceCompat
+            android:key="enable_dictation"
+            android:title="@string/pref_enable_dictation_title"
+            android:summary="@string/pref_enable_dictation_summary"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+            
+        <SwitchPreferenceCompat
+            android:key="auto_punctuation"
+            android:title="@string/pref_auto_punctuation_title"
+            android:summary="@string/pref_auto_punctuation_summary"
+            android:defaultValue="true"
+            android:dependency="enable_dictation"
+            app:iconSpaceReserved="false" />
+            
+        <SwitchPreferenceCompat
+            android:key="grammar_correction"
+            android:title="@string/pref_grammar_correction_title"
+            android:summary="@string/pref_grammar_correction_summary"
+            android:defaultValue="true"
+            android:dependency="enable_dictation"
+            app:iconSpaceReserved="false" />
+            
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="Recognition Settings">
+        
+        <ListPreference
+            android:key="recognition_language"
+            android:title="Recognition Language"
+            android:summary="Choose speech recognition language"
+            android:entries="@array/language_entries"
+            android:entryValues="@array/language_values"
+            android:defaultValue="en-US"
+            android:dependency="enable_dictation"
+            app:iconSpaceReserved="false" />
+            
+        <SeekBarPreference
+            android:key="recognition_timeout"
+            android:title="Recognition Timeout"
+            android:summary="How long to listen for speech"
+            android:max="10"
+            android:defaultValue="5"
+            android:dependency="enable_dictation"
+            app:iconSpaceReserved="false" />
+            
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="Keyboard Appearance">
+        
+        <SwitchPreferenceCompat
+            android:key="show_suggestions"
+            android:title="Show Suggestions"
+            android:summary="Display word suggestions above keyboard"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+            
+        <SwitchPreferenceCompat
+            android:key="key_preview"
+            android:title="Key Preview"
+            android:summary="Show key popup when pressed"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false" />
+            
+    </PreferenceCategory>
+    
+</PreferenceScreen>
