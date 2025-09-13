@@ -54,10 +54,12 @@ class AIKeyboardService : InputMethodService() {
         if (spaceId != 0) rootView.findViewById<Button>(spaceId)?.setOnClickListener {
             currentInputConnection?.commitText(" ", 1)
         }
+
         val backId = resources.getIdentifier("key_backspace", "id", packageName)
         if (backId != 0) rootView.findViewById<Button>(backId)?.setOnClickListener {
             currentInputConnection?.deleteSurroundingText(1, 0)
         }
+
         val enterId = resources.getIdentifier("key_enter", "id", packageName)
         if (enterId != 0) rootView.findViewById<Button>(enterId)?.setOnClickListener {
             currentInputConnection?.performEditorAction(EditorInfo.IME_ACTION_DONE)
