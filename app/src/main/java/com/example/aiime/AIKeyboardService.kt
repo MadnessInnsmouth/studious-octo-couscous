@@ -7,10 +7,8 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
-import android.util.Log
 import kotlinx.coroutines.*
 import java.util.concurrent.atomic.AtomicBoolean
-import com.example.aiime.R
 
 class AIKeyboardService : InputMethodService() {
 
@@ -18,10 +16,6 @@ class AIKeyboardService : InputMethodService() {
     private var stt: VoskStt? = null
     private val listening = AtomicBoolean(false)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
-
-    companion object {
-        private const val TAG = "AIKeyboardService"
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -31,15 +25,8 @@ class AIKeyboardService : InputMethodService() {
     }
 
     override fun onCreateInputView(): View {
-        // Prefer user's keyboard_view.xml if present; else fallback to an empty container to avoid crashes
-        val layoutName = "keyboard_view"
-        val layoutId = resources.getIdentifier(layoutName, "layout", packageName)
-        if (layoutId == 0) {
-            Log.w(TAG, "Layout '$layoutName' not found. Returning empty LinearLayout to avoid crash.")
-            rootView = LinearLayout(this)
-            return rootView
-        }
-
+        // Prefer user's keyboard_view.xml if present; else fallback to ours
+        val layoutId = resources.getIdentifier("keyboard_view", "layout", packageName)
         rootView = LayoutInflater.from(this).inflate(layoutId, null) as LinearLayout
         wireKeys()
         return rootView
@@ -60,20 +47,17 @@ class AIKeyboardService : InputMethodService() {
             "key_a" to "a","key_s" to "s","key_d" to "d","key_f" to "f","key_g" to "g",
             "key_h" to "h","key_j" to "j","key_k" to "k","key_l" to "l",
             "key_z" to "z","key_x" to "x","key_c" to "c","key_v" to "v","key_b" to "b",
-            "key_n" to "n","key_m" to "m"
-        )
+            "key_n" to "n","key_m" to "m" )
         for (k in keys) setKey(k.first, k.second)
 
         val spaceId = resources.getIdentifier("key_space", "id", packageName)
         if (spaceId != 0) rootView.findViewById<Button>(spaceId)?.setOnClickListener {
             currentInputConnection?.commitText(" ", 1)
         }
-
         val backId = resources.getIdentifier("key_backspace", "id", packageName)
         if (backId != 0) rootView.findViewById<Button>(backId)?.setOnClickListener {
             currentInputConnection?.deleteSurroundingText(1, 0)
         }
-
         val enterId = resources.getIdentifier("key_enter", "id", packageName)
         if (enterId != 0) rootView.findViewById<Button>(enterId)?.setOnClickListener {
             currentInputConnection?.performEditorAction(EditorInfo.IME_ACTION_DONE)
@@ -91,6 +75,25 @@ class AIKeyboardService : InputMethodService() {
 
     private fun startDictation(micBtn: Button?) {
         if (stt == null) stt = VoskStt(this)
-        Log.d(TAG, "Starting dictation")
         micBtn?.contentDescription = getString(R.string.accessibility_listening)
-        micBtn?.
+        micBtn?.announceForAccessibility(getString(R.string.accessibility_listening))
+        listening.set(true)
+        stt?.start(
+            onPartial = { /* optional live preview */ },
+            onFinal = { text -> currentInputConnection?.commitText("$text ", 1) },
+            onError = { err -> Toast.makeText(this, "STT error: $err", Toast.LENGTH_SHORT).show() }
+        )
+    }
+
+    private fun stopDictation(micBtn: Button?) {
+        listening.set(false)
+        micBtn?.contentDescription = getString(R.string.accessibility_voice_stopped) micBtn?.announceForAccessibility(getString(R.string.accessibility_voice_stopped))
+        stt?.stop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
+        stt?.release()
+    }
+}
