@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.studious_octocouscous"
+    namespace = "com.example.aiime"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.studious_octocouscous"
+        applicationId = "com.example.aiime"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
