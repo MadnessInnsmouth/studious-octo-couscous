@@ -47,8 +47,7 @@ class AIKeyboardService : InputMethodService() {
             "key_a" to "a","key_s" to "s","key_d" to "d","key_f" to "f","key_g" to "g",
             "key_h" to "h","key_j" to "j","key_k" to "k","key_l" to "l",
             "key_z" to "z","key_x" to "x","key_c" to "c","key_v" to "v","key_b" to "b",
-            "key_n" to "n","key_m" to "m"
-        )
+            "key_n" to "n","key_m" to "m" )
         for (k in keys) setKey(k.first, k.second)
 
         val spaceId = resources.getIdentifier("key_space", "id", packageName)
@@ -76,8 +75,8 @@ class AIKeyboardService : InputMethodService() {
 
     private fun startDictation(micBtn: Button?) {
         if (stt == null) stt = VoskStt(this)
-        micBtn?.contentDescription = getString(R.string.listening)
-        micBtn?.announceForAccessibility(getString(R.string.listening))
+        micBtn?.contentDescription = getString(R.string.accessibility_listening)
+        micBtn?.announceForAccessibility(getString(R.string.accessibility_listening))
         listening.set(true)
         stt?.start(
             onPartial = { /* optional live preview */ },
@@ -88,8 +87,7 @@ class AIKeyboardService : InputMethodService() {
 
     private fun stopDictation(micBtn: Button?) {
         listening.set(false)
-        micBtn?.contentDescription = getString(R.string.stopped)
-        micBtn?.announceForAccessibility(getString(R.string.stopped))
+        micBtn?.contentDescription = getString(R.string.accessibility_voice_stopped) micBtn?.announceForAccessibility(getString(R.string.accessibility_voice_stopped))
         stt?.stop()
     }
 
