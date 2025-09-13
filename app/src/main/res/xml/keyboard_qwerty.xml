@@ -50,7 +50,7 @@
     
     <!-- Fourth row: 123 🎤 Space Enter -->
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-2" android:keyLabel="?123" android:keyWidth="15%p" android:keyEdgeFlags="left" />
+        <Key android:codes="-2" android:keyLabel="\?123" android:keyWidth="15%p" android:keyEdgeFlags="left" />
         <Key android:codes="-10" android:keyLabel="🎤" android:keyWidth="15%p" />
         <Key android:codes="32" android:keyLabel="SPACE" android:keyWidth="40%p" android:isRepeatable="true" />
         <Key android:codes="-4" android:keyLabel="⏎" android:keyWidth="15%p" />
