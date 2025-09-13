@@ -1,6 +1,8 @@
-name: Android CI (Debug Hunt)
+name: Android CI
 
 on:
+  push:
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -20,16 +22,11 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      # 🔍 This is the hunt step — we output all deps
-      - name: Dump dependency tree
-        run: ./gradlew app:dependencies --configuration debugCompileClasspath > dependencies.txt
+      - name: Build Debug APK
+        run: gradle :app:assembleDebug --stacktrace
 
-      - name: Upload dependency tree
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: dependency-tree
-          path: dependencies.txt
-
-      # Still try to build (so we see error logs too)
-      - name: Build Debug APK with verbose logging
-        run: ./gradlew :app:assembleDebug --stacktrace --info
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
