@@ -2,15 +2,12 @@ name: Find Bad Dependency
 
 on:
   workflow_dispatch:
-    inputs: {}
 
 jobs:
-  locate-bad-attr:
+  debug-deps:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -18,19 +15,19 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
 
-      - name: Dump dependency tree
-        run: gradle :app:dependencies --configuration debugRuntimeClasspath > deps.txt
+      - name: Dump dependencies
+        run: ./gradlew app:dependencies --configuration debugCompileClasspath > dependencies.txt
 
-      - name: Build with verbose logs
-        run: gradle :app:assembleDebug --stacktrace --info > build_verbose.log
+      - name: Verbose build log
+        run: ./gradlew assembleDebug --stacktrace --debug > build_verbose.log
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
-          name: debug-info
+          name: gradle-debug-files
           path: |
-            deps.txt
+            dependencies.txt
             build_verbose.log
