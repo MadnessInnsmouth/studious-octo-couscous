@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.aiime">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
@@ -10,7 +9,7 @@
         
         <service
             android:name=".AIKeyboardService"
-            android:label="@string/ime_name"
+            android:label="@string/keyboard_name"
             android:permission="android.permission.BIND_INPUT_METHOD"
             android:exported="true">
             <intent-filter>
