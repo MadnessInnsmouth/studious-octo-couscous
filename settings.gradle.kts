@@ -3,7 +3,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven { url = uri("https://alphacephei.com/maven/") }
+        maven("https://jitpack.io")
     }
 }
 dependencyResolutionManagement {
@@ -11,7 +11,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://alphacephei.com/maven/") }
+        maven("https://jitpack.io")
     }
 }
 rootProject.name = "ai-ime-merged"
