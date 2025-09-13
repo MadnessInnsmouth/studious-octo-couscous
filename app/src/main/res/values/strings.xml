@@ -9,7 +9,7 @@
     <string name="key_space">SPACE</string>
     <string name="key_enter">ENTER</string>
     <string name="key_shift">SHIFT</string>
-    <string name="key_symbols">?123</string>
+    <string name="key_symbols">\?123</string>
     <string name="key_letters">ABC</string>
     <string name="key_dictate">🎤</string>
     
@@ -44,8 +44,7 @@
     <string name="pref_grammar_correction_title">Grammar Correction</string>
     <string name="pref_grammar_correction_summary">Fix grammar and sentence structure</string>
     
-    <!-- Instructions -->
-    <string name="keyboard_enable_instructions">To enable AI Dictate Keyboard:\n\n1. Go to Settings > System > Languages &amp; input\n2. Select Virtual keyboard\n3. Enable AI Dictate Keyboard\n4. Set as default or switch using keyboard switcher</string>
+    <!-- Instructions -->   <string name="keyboard_enable_instructions">To enable AI Dictate Keyboard:\n\n1. Go to Settings &gt; System &gt; Languages &amp; input\n2. Select Virtual keyboard\n3. Enable AI Dictate Keyboard\n4. Set as default or switch using keyboard switcher</string>
     
     <!-- Permission messages -->
     <string name="permission_microphone_title">Microphone Permission Required</string>
