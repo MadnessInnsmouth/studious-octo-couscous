@@ -1,2 +1,35 @@
-- name: Build Debug APK with verbose logging
-  run: ./gradlew :app:assembleDebug --stacktrace --info
+name: Android CI (Debug Hunt)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      # 🔍 This is the hunt step — we output all deps
+      - name: Dump dependency tree
+        run: ./gradlew app:dependencies --configuration debugCompileClasspath > dependencies.txt
+
+      - name: Upload dependency tree
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-tree
+          path: dependencies.txt
+
+      # Still try to build (so we see error logs too)
+      - name: Build Debug APK with verbose logging
+        run: ./gradlew :app:assembleDebug --stacktrace --info
